@@ -1,7 +1,3 @@
 ---
-- name : Start Docker Service
-    command : sudo systemctl start docker
-    become : yes
-    become_user : root
   - name : Deploy the image and Run as a Container
     command : docker run -itd -p 8082:8080 pavanputtur/healthcare:1.0
