@@ -27,5 +27,13 @@ pipeline {
        sh 'docker build -t pavanputtur/healthcare:1.0 .'
        }
        }
+   stage('pushing to dockerhub') {
+       steps {
+       withCredentials([usernamePassword(credentialsId: 'docker_hub', passwordVariable: 'dockerHubPassword', usernameVariable: 'dockerHubUser')]) {
+       sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+       sh 'docker push pavanputtur/healthcare:1.0'
+       }
+       }
+       }
 	}
 	}
