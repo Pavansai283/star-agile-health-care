@@ -16,4 +16,4 @@
     become : yes
     become_user : root
   - name : Deploy the image and Run as a Container
-    command : docker run -itd -p 8070:8082 pavanputtur/healthcare:1.0
+    command : docker run -itd -p 8090:8082 pavanputtur/healthcare:1.0
