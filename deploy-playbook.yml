@@ -8,7 +8,7 @@
     become : yes
     become_user : root
   - name : Deploy the image and Run as a Container
-    command : docker run -itd -p 8086:8082 pavanputtur/healthcare:1.0
+    command : docker run -itd -p 8088:8082 pavanputtur/healthcare:1.0
   - name : Deploying Container on kubernetes
     apiVersion: apps/v1
     kind: Deployment
