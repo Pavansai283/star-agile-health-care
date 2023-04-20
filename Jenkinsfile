@@ -40,10 +40,10 @@ pipeline {
        ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy-playbook.yml'
       }
 }
-   stage('Deploying container to Kubernetes') {
+   stage('Deploying to Kubernetes') {
        steps {
         script {
-          kubernetesDeploy(configs: "deployment.yml", "service.yml")
+          kubernetesDeploy (configs: 'deployment.yml', kubeconfigId: 'kubernetes')
 	}
 	}
 	}
