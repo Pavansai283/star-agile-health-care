@@ -37,8 +37,8 @@ pipeline {
        }
     stage('Deploy using Ansible') {
        steps {
-       ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy-playbook.yml'
-      }
+       ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: 'hosts', playbook: 'deploy-playbook.yml'
+       }
 }
    stage('Deploying to Kubernetes') {
        steps {
