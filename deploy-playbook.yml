@@ -12,36 +12,36 @@
   - name : Deploying Container on kubernetes
     apiVersion: apps/v1
     kind: Deployment
-     metadata:
+    metadata:
       name: healthcare-deployment
-     labels:
-      app: healthcare
-     spec:
-    replicas: 1
-         selector:
-    matchLabels:
-      app: healthcare
-     template:
-       metadata:
-        labels:
-         app: healthcare
+      labels:
+        app: healthcare
     spec:
-      containers:
-      - name: healthcare
-        image: pavanputtur/healthcare:1.0
-        ports:
-        - containerPort: 8040
+      replicas: 1
+      selector:
+        matchLabels:
+          app: healthcare
+      template:
+        metadata:
+          labels:
+            app: healthcare
+        spec:
+          containers:
+          - name: healthcare
+            image: pavanputtur/healthcare:1.0
+            ports:
+            - containerPort: 8040
   - name : creating service
     apiVersion: v1
     kind: Service
-     metadata:
+    metadata:
       name: healthcare-service
-     spec:
+    spec:
       selector:
-     app: healthcare
-     type: NodePort
-     ports:
-      - protocol: TCP
-      port: 80
-      targetPort: 8080
-      nodePort: 30010
+        app: healthcare
+      type: NodePort
+      ports:
+        - protocol: TCP
+          port: 80
+          targetPort: 8080
+          nodePort: 30010
