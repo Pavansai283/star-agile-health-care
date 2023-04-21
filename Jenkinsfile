@@ -42,7 +42,7 @@ pipeline {
 	//}
     stage('Deploy to k8s') {
         steps {
-            sshagent(['kubernetes']) {
+            sshagent(['prod-server']) {
             sh 'sudo scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/healthcare/deploymentservice.yml ubuntu@172.31.40.60:/home/ubuntu'
             script {
                 try {
