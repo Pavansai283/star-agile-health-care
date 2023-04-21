@@ -40,18 +40,10 @@ pipeline {
        //ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy-playbook.yml'
        //}
 	//}
-    stage('Deploy to k8s') {
-        steps {
-           script {
-              env.APPROVED_DEPLOY = input message: 'User input required Choose "yes" | "Abort"'
-                       }
-	  
-	}
-	}
     stage('Deploy to Kubernetes Cluster') {
          steps {
 	   script {
-            sshPublisher(publishers: [sshPublisherDesc(configName: 'kuberneteCluster', transfers: [sshTransfer(cleanRemote: false, excludes: '', execCommand: 'kubectl apply -f deploymentservice.yml', execTimeout: 120000, flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectory: '.', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '*.yaml')], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: false)])		
+               kubernetesDeploy (configs: 'deploymentservice.yml', kubeconfigId: 'kubernetes') 
 	    }
 	    }
         }
