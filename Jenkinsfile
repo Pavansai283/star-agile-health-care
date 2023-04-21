@@ -42,8 +42,15 @@ pipeline {
 	//}
     stage('Deploy to k8s') {
         steps {
-          script {
-	    kubernetesDeploy(configs: 'deploymentservice.yml', kubeconfigId: 'kubernetes')
+            sshagent(['kubernetes']) {
+            sh 'sudo scp -r -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/healthcare/deploymentservice.yml ubuntu@172.31.40.60:/home/ubuntu'
+            script {
+                try {
+                    sh "ssh ubuntu@172.31.40.60 kubectl apply -f deploymentservice.yml"
+               }catch(error) {
+                   sh "ssh ubuntu@172.31.40.60 kubectl create -f deploymentservice.yml" 
+	 }
+	}
 	}
 	}
 	}
