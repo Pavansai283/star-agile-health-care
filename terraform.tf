@@ -1,11 +1,4 @@
-terraform {
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "4.11.0"
-    }
-  }
-}
+
 provider "aws" {
    region="ap-south-1"
      access_key="AKIAZAWABVFBJKK2F74Z"
@@ -17,7 +10,7 @@ resource "aws_instance" "Prod-Server" {
   instance_type          = "t2.medium"
   availability_zone      = "ap-south-1a"
   vpc_security_group_ids = ["sg-01714141887774176"]
-  key_name               = "myCE2key.pem"
+  key_name               = "myEC2key.pem"
   tags = {
     name = "k8s_instance"
   }
@@ -38,7 +31,7 @@ resource "aws_instance" "Prod-Server" {
       type        = "ssh"
       host        = self.public_ip
       user        = "ubuntu"
-      private_key = file("./myCE2key.pem")
+      private_key = file("./myEC2key.pem")
     }
   }
 }
