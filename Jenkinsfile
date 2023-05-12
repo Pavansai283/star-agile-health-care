@@ -31,34 +31,9 @@ pipeline {
        }
        }
   
-    stage('Terraform init'){
-		steps{
-			sh 'terraform init'
-			}
-		}
-
-		stage('Terraform fmt'){
-		steps{
-			sh 'terraform fmt'
-			}
-		}
-
-		stage('Terraform validate'){
-		steps{
-			sh 'terraform validate'
-			}
-		}
-		
-
-		stage('Terraform apply'){
-		steps{
-			sh 'terraform apply -auto-approve'
-			sleep 10
-			}
-		}
-    //stage('Deploy using Ansible') {
-      //   steps {
-        //    ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy-playbook.yml'
+    stage('Deploy using Ansible') {
+         steps {
+            ansiblePlaybook credentialsId: 'prod-server', disableHostKeyChecking: true, installation: 'ansible', inventory: '/etc/ansible/hosts', playbook: 'deploy-playbook.yml'
       
 
 	}
